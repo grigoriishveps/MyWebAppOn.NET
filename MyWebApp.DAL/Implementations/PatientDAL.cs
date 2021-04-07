@@ -12,7 +12,6 @@ namespace MyWebApp.DAL.Implementations
 {
     public class PatientDAL:IPatientDAL 
     {
-        private IPatientDAL _patientDalImplementation;
         private AppContext Context { get; }
         private IMapper Mapper { get; }
         

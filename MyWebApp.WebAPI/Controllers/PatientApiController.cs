@@ -15,14 +15,14 @@ namespace MyWebApp.WebAPI.Controllers
 {
     [ApiController]
     [Route("api/patient")]
-    public class PatientController : ControllerBase
+    public class PatientApiController : ControllerBase
     {
         private IPatientService PatientService{ get;}
-        private ILogger<PatientController> Logger { get; }
+        private ILogger<PatientApiController> Logger { get; }
         private IMapper Mapper { get; }
         
         
-        public PatientController(ILogger<PatientController> logger, IMapper mapper, IPatientService patientService)
+        public PatientApiController(ILogger<PatientApiController> logger, IMapper mapper, IPatientService patientService)
         {
             this.Logger = logger;
             this.PatientService = patientService;
@@ -58,11 +58,5 @@ namespace MyWebApp.WebAPI.Controllers
             var result = await this.PatientService.CreateAsync(this.Mapper.Map<PatientUpdateModel>(patient));
             return this.Mapper.Map<PatientDTO>(result);
         }
-        
-        // [HttpDelete("{id}")]
-        // public async Task<PatientDTO> DeleteAsync(int id)
-        // {
-        //     
-        // }
     }
 }
