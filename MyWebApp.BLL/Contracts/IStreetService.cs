@@ -13,5 +13,6 @@ namespace MyWebApp.BLL.Contracts
         Task<Street> GetAsync(IStreetIdentity id);
         Task<Street> CreateAsync(StreetUpdateModel street);
         Task<Street> UpdateAsync(StreetUpdateModel street);
+        Task ValidateAsync(IStreetContainer streetContainer);
     }
 }

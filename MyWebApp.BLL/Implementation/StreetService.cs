@@ -34,5 +34,20 @@ namespace MyWebApp.BLL.Implementation
         {
             return this.StreetDAL.GetAsync(id);
         }
+        public async Task ValidateAsync(IStreetContainer streetContainer){
+            if (streetContainer == null)
+            {
+                throw new ArgumentNullException(nameof(streetContainer));
+            }
+            else
+            {
+                if (streetContainer.StreetId.HasValue)
+                {
+                    var department = await this.StreetDAL.GetAsync(new StreetIdentityModel(streetContainer.StreetId.Value));
+                    if (department == null)
+                        throw new InvalidOperationException($"Street not found by id {streetContainer.StreetId}");
+                }
+            }
+        }
     }
 }

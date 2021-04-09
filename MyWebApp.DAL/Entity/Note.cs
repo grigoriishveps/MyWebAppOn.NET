@@ -9,8 +9,12 @@ namespace MyWebApp.DAL.Entity
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public Doctor DoctorId { get; set; }
-        public Patient PatientId { get; set; }
+        public int DoctorId { get; set; }
+        public Doctor Doctor { get; set; }
+        public int PatientId { get; set; }
+        public Patient Patient { get; set; }
+        public int? DiseaseId { get; set; }
+        public Disease Disease { get; set; }
         public DateTime DateVisit { get; set; }
     }
 }

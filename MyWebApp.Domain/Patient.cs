@@ -1,14 +1,12 @@
 using MyWebApp.Domain.Base;
+using MyWebApp.Domain.Contracts;
 
 namespace MyWebApp.Domain
 {
-    public class Patient:BasePatient
+    public class Patient:BasePatient,IStreetContainer
     {
-        public Patient(int id) {
-            Id = id;
-        }
-
-        public int Id { get; }
         
+        public int Id { get; set; }
+        public int? StreetId { get; set; }
     }
 }

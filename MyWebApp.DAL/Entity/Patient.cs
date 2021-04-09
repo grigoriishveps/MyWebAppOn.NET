@@ -16,6 +16,8 @@ namespace MyWebApp.DAL.Entity
         public string MiddleName { get; set; }
         
         public string PassportNumber{ get; set; }
+        public int? StreetId { get; set; }
+        public Street Street { get; set; }
         
         public List<Note> Notes { get; set; } = new List<Note>();
     }

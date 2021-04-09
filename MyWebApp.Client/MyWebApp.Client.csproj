@@ -4,4 +4,8 @@
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\MyWebApp.Domain\MyWebApp.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

@@ -33,16 +33,16 @@ namespace MyWebApp.WebAPI
             services.AddAutoMapper(typeof(Startup));
             
             //BLL
+            services.Add(new ServiceDescriptor(typeof(IStreetService), typeof(StreetService), ServiceLifetime.Scoped));
             services.Add(new ServiceDescriptor(typeof(IPatientService), typeof(PatientService), ServiceLifetime.Scoped));
             services.Add(new ServiceDescriptor(typeof(IDoctorService), typeof(DoctorService), ServiceLifetime.Scoped));
-            services.Add(new ServiceDescriptor(typeof(IStreetService), typeof(StreetService), ServiceLifetime.Scoped));
             services.Add(new ServiceDescriptor(typeof(IDiseaseService), typeof(DiseaseService), ServiceLifetime.Scoped));
             services.Add(new ServiceDescriptor(typeof(INoteService), typeof(NoteService), ServiceLifetime.Scoped));
             
             // DAL
+            services.Add(new ServiceDescriptor(typeof(IStreetDAL), typeof(StreetDAL), ServiceLifetime.Scoped));
             services.Add(new ServiceDescriptor(typeof(IPatientDAL), typeof(PatientDAL), ServiceLifetime.Transient));
             services.Add(new ServiceDescriptor(typeof(IDoctorDAL), typeof(DoctorDAL), ServiceLifetime.Scoped));
-            services.Add(new ServiceDescriptor(typeof(IStreetDAL), typeof(StreetDAL), ServiceLifetime.Scoped));
             services.Add(new ServiceDescriptor(typeof(IDiseaseDAL), typeof(DiseaseDAL), ServiceLifetime.Scoped));
             services.Add(new ServiceDescriptor(typeof(INoteDAL), typeof(NoteDAL), ServiceLifetime.Scoped));
 

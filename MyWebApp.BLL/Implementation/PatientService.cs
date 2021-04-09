@@ -12,13 +12,16 @@ namespace MyWebApp.BLL.Implementation
     public class PatientService: IPatientService
     {
         private IPatientDAL PatientDAL { get; }
+        private IStreetService StreetService { get; }
         
-        public PatientService(IPatientDAL employeeDataAccess)
+        public PatientService(IPatientDAL employeeDataAccess, IStreetService streetService)
         {
             this.PatientDAL = employeeDataAccess;
+            this.StreetService = streetService;
         }
         
         public async Task<Patient> CreateAsync(PatientUpdateModel patient) {
+            await this.StreetService.ValidateAsync(patient);
             return await this.PatientDAL.InsertAsync(patient);
         }
         
@@ -33,6 +36,20 @@ namespace MyWebApp.BLL.Implementation
         public Task<Patient> GetAsync(IPatientIdentity id)
         {
             return this.PatientDAL.GetAsync(id);
+        }
+        
+        public async Task ValidateAsync(IPatientContainer patientContainer)
+        {
+            if (patientContainer == null)
+            {
+                throw new ArgumentNullException(nameof(patientContainer));
+            }
+            if (patientContainer.PatientId.HasValue)
+            {
+                var department = await this.PatientDAL.GetAsync(new PatientIdentityModel(patientContainer.PatientId.Value));
+                if( department == null)
+                    throw new InvalidOperationException($"Department not found by id {patientContainer.PatientId}");
+            }
         }
     }
 }

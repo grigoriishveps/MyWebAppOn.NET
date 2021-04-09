@@ -13,5 +13,6 @@ namespace MyWebApp.BLL.Contracts
         Task<Disease> GetAsync(IDiseaseIdentity id);
         Task<Disease> CreateAsync(DiseaseUpdateModel disease);
         Task<Disease> UpdateAsync(DiseaseUpdateModel disease);
+        Task ValidateAsync(IDiseaseContainer diseaseContainer);
     }
 }

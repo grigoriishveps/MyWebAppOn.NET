@@ -34,5 +34,22 @@ namespace MyWebApp.BLL.Implementation
         {
             return this.DoctorDAL.GetAsync(id);
         }
+        
+        public async Task ValidateAsync(IDoctorContainer doctorContainer)
+        {
+            if (doctorContainer == null)
+            {
+                throw new ArgumentNullException(nameof(doctorContainer));
+            }
+            
+            //var department = await this.DoctorDAL.GetAsync(new DoctorIdentityModel((int) doctorContainer.DoctorId));
+            
+            if (doctorContainer.DoctorId.HasValue)
+            {
+                var department = await this.DoctorDAL.GetAsync(new DoctorIdentityModel((int) doctorContainer.DoctorId));
+                if(department == null) 
+                    throw new InvalidOperationException($"Doctor not found by id {doctorContainer.DoctorId}");
+            }
+        }
     }
 }

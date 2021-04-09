@@ -15,6 +15,7 @@ namespace MyWebApp.DAL
         public AppContext(DbContextOptions<AppContext> options)
             : base(options)
         {
+            // Database.EnsureDeleted();   // создаем базу данных при первом обращении
             Database.EnsureCreated();   // создаем базу данных при первом обращении
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
