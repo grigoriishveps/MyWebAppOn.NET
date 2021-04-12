@@ -8,9 +8,9 @@ namespace MyWebApp.DAL.Contracts
 {
     public interface IPatientDAL
     {
-        Task<Patient> InsertAsync(PatientUpdateModel employee);
+        Task<Patient> InsertAsync(PatientUpdateModel patient);
         Task<IEnumerable<Patient>> GetAsync();
-        Task<Patient> GetAsync(IPatientIdentity employeeId);
-        Task<Patient> UpdateAsync(PatientUpdateModel employee);
+        Task<Patient> GetAsync(IPatientIdentity patientId);
+        Task<Patient> UpdateAsync(PatientUpdateModel patient);
     }
 }

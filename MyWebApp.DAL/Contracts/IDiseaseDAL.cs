@@ -8,9 +8,9 @@ namespace MyWebApp.DAL.Contracts
 {
     public interface IDiseaseDAL
     {
-        Task<Disease> InsertAsync(DiseaseUpdateModel employee);
+        Task<Disease> InsertAsync(DiseaseUpdateModel disease);
         Task<IEnumerable<Disease>> GetAsync();
-        Task<Disease> GetAsync(IDiseaseIdentity employeeId);
-        Task<Disease> UpdateAsync(DiseaseUpdateModel employee);
+        Task<Disease> GetAsync(IDiseaseIdentity diseaseId);
+        Task<Disease> UpdateAsync(DiseaseUpdateModel disease);
     }
 }

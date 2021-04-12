@@ -15,9 +15,9 @@ namespace MyWebApp.BLL.Implementation
         private IPatientService PatientService { get; }
         private IDoctorService DoctorService { get; }
         private IDiseaseService DiseaseService { get; }
-        public NoteService(INoteDAL employeeDataAccess, IPatientService patientService, IDoctorService doctorService, IDiseaseService diseaseService)
+        public NoteService(INoteDAL noteDAL, IPatientService patientService, IDoctorService doctorService, IDiseaseService diseaseService)
         {
-            this.NoteDAL = employeeDataAccess;
+            this.NoteDAL = noteDAL;
             this.PatientService = patientService;
             this.DoctorService = doctorService;
             this.DiseaseService = diseaseService;

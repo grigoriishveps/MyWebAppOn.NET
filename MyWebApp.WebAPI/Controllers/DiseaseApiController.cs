@@ -20,10 +20,10 @@ namespace MyWebApp.WebAPI.Controllers
         private IMapper Mapper { get; }
         
         
-        public DiseaseApiController(ILogger<DiseaseApiController> logger, IMapper mapper, IDiseaseService patientService)
+        public DiseaseApiController(ILogger<DiseaseApiController> logger, IMapper mapper, IDiseaseService diseaseService)
         {
             this.Logger = logger;
-            this.DiseaseService = patientService;
+            this.DiseaseService = diseaseService;
             this.Mapper = mapper;
         }
         
@@ -42,18 +42,18 @@ namespace MyWebApp.WebAPI.Controllers
         }
         
         [HttpPatch]
-        public async Task<DiseaseDTO> PatchAsync(DiseaseUpdateDTO patient)
+        public async Task<DiseaseDTO> PatchAsync(DiseaseUpdateDTO disease)
         {
             this.Logger.LogTrace($"{nameof(this.PutAsync)} called");
-            var result = await this.DiseaseService.UpdateAsync(this.Mapper.Map<DiseaseUpdateModel>(patient));
+            var result = await this.DiseaseService.UpdateAsync(this.Mapper.Map<DiseaseUpdateModel>(disease));
             return this.Mapper.Map<DiseaseDTO>(result);
         }
         
         [HttpPut]
-        public async Task<DiseaseDTO> PutAsync(DiseaseCreateDTO patient)
+        public async Task<DiseaseDTO> PutAsync(DiseaseCreateDTO disease)
         {
             this.Logger.LogTrace($"{nameof(this.PutAsync)} called");
-            var result = await this.DiseaseService.CreateAsync(this.Mapper.Map<DiseaseUpdateModel>(patient));
+            var result = await this.DiseaseService.CreateAsync(this.Mapper.Map<DiseaseUpdateModel>(disease));
             return this.Mapper.Map<DiseaseDTO>(result);
         }
     }

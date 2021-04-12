@@ -13,9 +13,9 @@ namespace MyWebApp.BLL.Implementation
     {
         private IStreetDAL StreetDAL { get; }
         
-        public StreetService(IStreetDAL employeeDataAccess)
+        public StreetService(IStreetDAL streetDAL)
         {
-            this.StreetDAL = employeeDataAccess;
+            this.StreetDAL = streetDAL;
         }
         
         public async Task<Street> CreateAsync(StreetUpdateModel street) {

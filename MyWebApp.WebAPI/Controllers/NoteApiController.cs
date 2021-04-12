@@ -20,10 +20,10 @@ namespace MyWebApp.WebAPI.Controllers
         private IMapper Mapper { get; }
         
         
-        public NoteApiController(ILogger<NoteApiController> logger, IMapper mapper, INoteService patientService)
+        public NoteApiController(ILogger<NoteApiController> logger, IMapper mapper, INoteService noteService)
         {
             this.Logger = logger;
-            this.NoteService = patientService;
+            this.NoteService = noteService;
             this.Mapper = mapper;
         }
         
@@ -42,18 +42,18 @@ namespace MyWebApp.WebAPI.Controllers
         }
         
         [HttpPatch]
-        public async Task<NoteDTO> PatchAsync(NoteUpdateDTO patient)
+        public async Task<NoteDTO> PatchAsync(NoteUpdateDTO note)
         {
             this.Logger.LogTrace($"{nameof(this.PutAsync)} called");
-            var result = await this.NoteService.UpdateAsync(this.Mapper.Map<NoteUpdateModel>(patient));
+            var result = await this.NoteService.UpdateAsync(this.Mapper.Map<NoteUpdateModel>(note));
             return this.Mapper.Map<NoteDTO>(result);
         }
         
         [HttpPut]
-        public async Task<NoteDTO> PutAsync(NoteCreateDTO patient)
+        public async Task<NoteDTO> PutAsync(NoteCreateDTO note)
         {
             this.Logger.LogTrace($"{nameof(this.PutAsync)} called");
-            var result = await this.NoteService.CreateAsync(this.Mapper.Map<NoteUpdateModel>(patient));
+            var result = await this.NoteService.CreateAsync(this.Mapper.Map<NoteUpdateModel>(note));
             return this.Mapper.Map<NoteDTO>(result);
         }
     }

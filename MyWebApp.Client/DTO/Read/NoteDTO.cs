@@ -1,4 +1,5 @@
 using System;
+using MyWebApp.Client.DTO.Create;
 using MyWebApp.Domain;
 
 namespace MyWebApp.Client.DTO.Read

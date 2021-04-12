@@ -19,10 +19,10 @@ namespace MyWebApp.WebAPI.Controllers
         private IMapper Mapper { get; }
         
         
-        public StreetApiController(ILogger<StreetApiController> logger, IMapper mapper, IStreetService patientService)
+        public StreetApiController(ILogger<StreetApiController> logger, IMapper mapper, IStreetService streetService)
         {
             this.Logger = logger;
-            this.StreetService = patientService;
+            this.StreetService = streetService;
             this.Mapper = mapper;
         }
         
@@ -49,10 +49,10 @@ namespace MyWebApp.WebAPI.Controllers
         }
         
         [HttpPut]
-        public async Task<StreetDTO> PutAsync(StreetCreateDTO patient)
+        public async Task<StreetDTO> PutAsync(StreetCreateDTO street)
         {
             this.Logger.LogTrace($"{nameof(this.PutAsync)} called");
-            var result = await this.StreetService.CreateAsync(this.Mapper.Map<StreetUpdateModel>(patient));
+            var result = await this.StreetService.CreateAsync(this.Mapper.Map<StreetUpdateModel>(street));
             return this.Mapper.Map<StreetDTO>(result);
         }
     }

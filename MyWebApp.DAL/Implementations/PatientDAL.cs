@@ -21,9 +21,9 @@ namespace MyWebApp.DAL.Implementations
             this.Mapper = mapper;
         }
 
-        public async Task<MyWebApp.Domain.Patient> InsertAsync(PatientUpdateModel employee)
+        public async Task<MyWebApp.Domain.Patient> InsertAsync(PatientUpdateModel patient)
         {
-            var result = await this.Context.AddAsync(this.Mapper.Map<Patient>(employee));
+            var result = await this.Context.AddAsync(this.Mapper.Map<Patient>(patient));
 
             await this.Context.SaveChangesAsync();
 
@@ -36,28 +36,28 @@ namespace MyWebApp.DAL.Implementations
                 await this.Context.Patient.ToListAsync());
         }
 
-        public async Task<MyWebApp.Domain.Patient> GetAsync(IPatientIdentity employee)
+        public async Task<MyWebApp.Domain.Patient> GetAsync(IPatientIdentity patient)
         {
-            var result = await this.Get(employee);
+            var result = await this.Get(patient);
 
             return this.Mapper.Map<MyWebApp.Domain.Patient>(result);
         }
 
-        private async Task<Patient> Get(IPatientIdentity employee)
+        private async Task<Patient> Get(IPatientIdentity patient)
         {
-            if (employee == null)
+            if (patient == null)
             {
-                throw new ArgumentNullException(nameof(employee));
+                throw new ArgumentNullException(nameof(patient));
             }
             
-            return await this.Context.Patient.FirstOrDefaultAsync(x => x.Id == employee.Id);
+            return await this.Context.Patient.FirstOrDefaultAsync(x => x.Id == patient.Id);
         }
 
-        public async Task<MyWebApp.Domain.Patient> UpdateAsync(PatientUpdateModel employee)
+        public async Task<MyWebApp.Domain.Patient> UpdateAsync(PatientUpdateModel patient)
         {
-            var existing = await this.Get(employee);
+            var existing = await this.Get(patient);
 
-            var result = this.Mapper.Map(employee, existing);
+            var result = this.Mapper.Map(patient, existing);
 
             this.Context.Update(result);
 

@@ -22,9 +22,9 @@ namespace MyWebApp.DAL.Implementations
             this.Mapper = mapper;
         }
 
-        public async Task<MyWebApp.Domain.Street> InsertAsync(StreetUpdateModel employee)
+        public async Task<MyWebApp.Domain.Street> InsertAsync(StreetUpdateModel street)
         {
-            var result = await this.Context.AddAsync(this.Mapper.Map<Street>(employee));
+            var result = await this.Context.AddAsync(this.Mapper.Map<Street>(street));
 
             await this.Context.SaveChangesAsync();
 
@@ -37,28 +37,28 @@ namespace MyWebApp.DAL.Implementations
                 await this.Context.Street.ToListAsync());
         }
 
-        public async Task<MyWebApp.Domain.Street> GetAsync(IStreetIdentity employee)
+        public async Task<MyWebApp.Domain.Street> GetAsync(IStreetIdentity street)
         {
-            var result = await this.Get(employee);
+            var result = await this.Get(street);
 
             return this.Mapper.Map<MyWebApp.Domain.Street>(result);
         }
 
-        private async Task<Street> Get(IStreetIdentity employee)
+        private async Task<Street> Get(IStreetIdentity street)
         {
-            if (employee == null)
+            if (street == null)
             {
-                throw new ArgumentNullException(nameof(employee));
+                throw new ArgumentNullException(nameof(street));
             }
             
-            return await this.Context.Street.FirstOrDefaultAsync(x => x.Id == employee.Id);
+            return await this.Context.Street.FirstOrDefaultAsync(x => x.Id == street.Id);
         }
 
-        public async Task<MyWebApp.Domain.Street> UpdateAsync(StreetUpdateModel employee)
+        public async Task<MyWebApp.Domain.Street> UpdateAsync(StreetUpdateModel street)
         {
-            var existing = await this.Get(employee);
+            var existing = await this.Get(street);
 
-            var result = this.Mapper.Map(employee, existing);
+            var result = this.Mapper.Map(street, existing);
 
             this.Context.Update(result);
 

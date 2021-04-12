@@ -8,9 +8,9 @@ namespace MyWebApp.DAL.Contracts
 {
     public interface IStreetDAL
     {
-        Task<Street> InsertAsync(StreetUpdateModel employee);
+        Task<Street> InsertAsync(StreetUpdateModel street);
         Task<IEnumerable<Street>> GetAsync();
-        Task<Street> GetAsync(IStreetIdentity employeeId);
-        Task<Street> UpdateAsync(StreetUpdateModel employee);
+        Task<Street> GetAsync(IStreetIdentity streetId);
+        Task<Street> UpdateAsync(StreetUpdateModel street);
     }
 }

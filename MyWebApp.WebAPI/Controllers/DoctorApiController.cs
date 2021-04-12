@@ -21,10 +21,10 @@ namespace MyWebApp.WebAPI.Controllers
         private IMapper Mapper { get; }
         
         
-        public DoctorApiController(ILogger<DoctorApiController> logger, IMapper mapper, IDoctorService patientService)
+        public DoctorApiController(ILogger<DoctorApiController> logger, IMapper mapper, IDoctorService doctorService)
         {
             this.Logger = logger;
-            this.DoctorService = patientService;
+            this.DoctorService = doctorService;
             this.Mapper = mapper;
         }
         
@@ -43,18 +43,18 @@ namespace MyWebApp.WebAPI.Controllers
         }
         
         [HttpPatch]
-        public async Task<DoctorDTO> PatchAsync(DoctorUpdateDTO patient)
+        public async Task<DoctorDTO> PatchAsync(DoctorUpdateDTO doctor)
         {
             this.Logger.LogTrace($"{nameof(this.PutAsync)} called");
-            var result = await this.DoctorService.UpdateAsync(this.Mapper.Map<DoctorUpdateModel>(patient));
+            var result = await this.DoctorService.UpdateAsync(this.Mapper.Map<DoctorUpdateModel>(doctor));
             return this.Mapper.Map<DoctorDTO>(result);
         }
         
         [HttpPut]
-        public async Task<DoctorDTO> PutAsync(DoctorCreateDTO patient)
+        public async Task<DoctorDTO> PutAsync(DoctorCreateDTO doctor)
         {
             this.Logger.LogTrace($"{nameof(this.PutAsync)} called");
-            var result = await this.DoctorService.CreateAsync(this.Mapper.Map<DoctorUpdateModel>(patient));
+            var result = await this.DoctorService.CreateAsync(this.Mapper.Map<DoctorUpdateModel>(doctor));
             return this.Mapper.Map<DoctorDTO>(result);
         }
     }

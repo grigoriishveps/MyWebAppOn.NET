@@ -8,9 +8,9 @@ namespace MyWebApp.DAL.Contracts
 {
     public interface INoteDAL
     {
-        Task<Note> InsertAsync(NoteUpdateModel employee);
+        Task<Note> InsertAsync(NoteUpdateModel note);
         Task<IEnumerable<Note>> GetAsync();
-        Task<Note> GetAsync(INoteIdentity employeeId);
-        Task<Note> UpdateAsync(NoteUpdateModel employee);
+        Task<Note> GetAsync(INoteIdentity noteId);
+        Task<Note> UpdateAsync(NoteUpdateModel note);
     }
 }
