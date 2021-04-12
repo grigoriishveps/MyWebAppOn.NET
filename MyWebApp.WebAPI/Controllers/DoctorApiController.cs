@@ -21,40 +21,40 @@ namespace MyWebApp.WebAPI.Controllers
         private IMapper Mapper { get; }
         
         
-        public DoctorApiController(ILogger<DoctorApiController> logger, IMapper mapper, IDoctorService patientService)
+        public DoctorApiController(ILogger<DoctorApiController> logger, IMapper mapper, IDoctorService doctorService)
         {
             this.Logger = logger;
-            this.DoctorService = patientService;
+            this.DoctorService = doctorService;
             this.Mapper = mapper;
         }
         
         [HttpGet]
-        public async Task<IEnumerable<DoctorDTO>> GetAsync(int patientId)
+        public async Task<IEnumerable<DoctorDTO>> GetAsync()
         {
-            this.Logger.LogTrace($"{nameof(this.GetAsync)} called for {patientId}");
-            return this.Mapper.Map<IEnumerable<DoctorDTO>>(await this.DoctorService.GetAsync(new DoctorIdentityModel(patientId)));
+            this.Logger.LogTrace($"{nameof(this.GetAsync)} called for ");
+            return this.Mapper.Map<IEnumerable<DoctorDTO>>(await this.DoctorService.GetAsync());
         }
         
-        [HttpGet("{id}")]
-        public async Task<DoctorDTO> GetAsync()
+        [HttpGet("{doctorId}")]
+        public async Task<DoctorDTO> GetAsync(int doctorId)
         {
             this.Logger.LogTrace($"{nameof(this.GetAsync)} called");
-            return this.Mapper.Map<DoctorDTO>(await this.DoctorService.GetAsync());
+            return this.Mapper.Map<DoctorDTO>(await this.DoctorService.GetAsync(new DoctorIdentityModel(doctorId)));
         }
         
         [HttpPatch]
-        public async Task<DoctorDTO> PatchAsync(DoctorUpdateDTO patient)
+        public async Task<DoctorDTO> PatchAsync(DoctorUpdateDTO doctor)
         {
             this.Logger.LogTrace($"{nameof(this.PutAsync)} called");
-            var result = await this.DoctorService.UpdateAsync(this.Mapper.Map<DoctorUpdateModel>(patient));
+            var result = await this.DoctorService.UpdateAsync(this.Mapper.Map<DoctorUpdateModel>(doctor));
             return this.Mapper.Map<DoctorDTO>(result);
         }
         
         [HttpPut]
-        public async Task<DoctorDTO> PutAsync(DoctorCreateDTO patient)
+        public async Task<DoctorDTO> PutAsync(DoctorCreateDTO doctor)
         {
             this.Logger.LogTrace($"{nameof(this.PutAsync)} called");
-            var result = await this.DoctorService.CreateAsync(this.Mapper.Map<DoctorUpdateModel>(patient));
+            var result = await this.DoctorService.CreateAsync(this.Mapper.Map<DoctorUpdateModel>(doctor));
             return this.Mapper.Map<DoctorDTO>(result);
         }
     }

@@ -22,9 +22,11 @@ namespace MyWebApp.DAL.Implementations
             this.Mapper = mapper;
         }
 
-        public async Task<MyWebApp.Domain.Note> InsertAsync(NoteUpdateModel employee)
+        public async Task<MyWebApp.Domain.Note> InsertAsync(NoteUpdateModel note)
         {
-            var result = await this.Context.AddAsync(this.Mapper.Map<Note>(employee));
+            Note new_obj = this.Mapper.Map<Note>(note);
+            new_obj.DateVisit = DateTime.Today;
+            var result = await this.Context.AddAsync(new_obj);
 
             await this.Context.SaveChangesAsync();
 
@@ -37,29 +39,29 @@ namespace MyWebApp.DAL.Implementations
                 await this.Context.Note.ToListAsync());
         }
 
-        public async Task<MyWebApp.Domain.Note> GetAsync(INoteIdentity employee)
+        public async Task<MyWebApp.Domain.Note> GetAsync(INoteIdentity note)
         {
-            var result = await this.Get(employee);
+            var result = await this.Get(note);
 
             return this.Mapper.Map<MyWebApp.Domain.Note>(result);
         }
 
-        private async Task<Note> Get(INoteIdentity employee)
+        private async Task<Note> Get(INoteIdentity note)
         {
-            if (employee == null)
+            if (note == null)
             {
-                throw new ArgumentNullException(nameof(employee));
+                throw new ArgumentNullException(nameof(note));
             }
             
-            return await this.Context.Note.FirstOrDefaultAsync(x => x.Id == employee.Id);
+            return await this.Context.Note.FirstOrDefaultAsync(x => x.Id == note.Id);
         }
 
-        public async Task<MyWebApp.Domain.Note> UpdateAsync(NoteUpdateModel employee)
+        public async Task<MyWebApp.Domain.Note> UpdateAsync(NoteUpdateModel note)
         {
-            var existing = await this.Get(employee);
-
-            var result = this.Mapper.Map(employee, existing);
-
+            var existing = await this.Get(note);
+            
+            var result = this.Mapper.Map(note, existing);
+            
             this.Context.Update(result);
 
             await this.Context.SaveChangesAsync();

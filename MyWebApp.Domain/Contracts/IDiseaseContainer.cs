@@ -2,6 +2,6 @@ namespace MyWebApp.Domain.Contracts
 {
     public interface IDiseaseContainer
     {
-        public int? DiseaseId { get; set; }
+        public int? DiseaseId { get; }
     }
 }

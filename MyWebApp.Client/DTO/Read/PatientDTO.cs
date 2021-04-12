@@ -10,5 +10,7 @@ namespace MyWebApp.Client.DTO.Read
         public string MiddleName { get; set; }
         
         public string PassportNumber{ get; set; }
+        
+        public int StreetId { get; set; }
     }
 }

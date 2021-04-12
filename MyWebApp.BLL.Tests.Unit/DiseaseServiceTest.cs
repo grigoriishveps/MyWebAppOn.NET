@@ -64,16 +64,13 @@ namespace MyWebApp.BLL.Tests.Unit
             var disease = new DiseaseUpdateModel();
             var expected = new Disease();
             
-            //var departmentGetService = new Mock<IDepartmentGetService>();
-            //departmentGetService.Setup(x => x.ValidateAsync(employee));
-
             var diseaseDAL = new Mock<IDiseaseDAL>();
             diseaseDAL.Setup(x => x.InsertAsync(disease)).ReturnsAsync(expected);
 
-            var streetService = new DiseaseService(diseaseDAL.Object);
+            var diseaseService = new DiseaseService(diseaseDAL.Object);
             
             // Act
-            var result = await streetService.CreateAsync(disease);
+            var result = await diseaseService.CreateAsync(disease);
             
             // Assert
             result.Should().Be(expected);

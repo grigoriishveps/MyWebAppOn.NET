@@ -22,9 +22,9 @@ namespace MyWebApp.DAL.Implementations
             this.Mapper = mapper;
         }
 
-        public async Task<MyWebApp.Domain.Disease> InsertAsync(DiseaseUpdateModel employee)
+        public async Task<MyWebApp.Domain.Disease> InsertAsync(DiseaseUpdateModel disease)
         {
-            var result = await this.Context.AddAsync(this.Mapper.Map<Disease>(employee));
+            var result = await this.Context.AddAsync(this.Mapper.Map<Disease>(disease));
 
             await this.Context.SaveChangesAsync();
 
@@ -37,28 +37,28 @@ namespace MyWebApp.DAL.Implementations
                 await this.Context.Disease.ToListAsync());
         }
 
-        public async Task<MyWebApp.Domain.Disease> GetAsync(IDiseaseIdentity employee)
+        public async Task<MyWebApp.Domain.Disease> GetAsync(IDiseaseIdentity disease)
         {
-            var result = await this.Get(employee);
+            var result = await this.Get(disease);
 
             return this.Mapper.Map<MyWebApp.Domain.Disease>(result);
         }
 
-        private async Task<Disease> Get(IDiseaseIdentity employee)
+        private async Task<Disease> Get(IDiseaseIdentity disease)
         {
-            if (employee == null)
+            if (disease == null)
             {
-                throw new ArgumentNullException(nameof(employee));
+                throw new ArgumentNullException(nameof(disease));
             }
             
-            return await this.Context.Disease.FirstOrDefaultAsync(x => x.Id == employee.Id);
+            return await this.Context.Disease.FirstOrDefaultAsync(x => x.Id == disease.Id);
         }
 
-        public async Task<MyWebApp.Domain.Disease> UpdateAsync(DiseaseUpdateModel employee)
+        public async Task<MyWebApp.Domain.Disease> UpdateAsync(DiseaseUpdateModel disease)
         {
-            var existing = await this.Get(employee);
+            var existing = await this.Get(disease);
 
-            var result = this.Mapper.Map(employee, existing);
+            var result = this.Mapper.Map(disease, existing);
 
             this.Context.Update(result);
 

@@ -14,9 +14,9 @@ namespace MyWebApp.BLL.Implementation
         private IPatientDAL PatientDAL { get; }
         private IStreetService StreetService { get; }
         
-        public PatientService(IPatientDAL employeeDataAccess, IStreetService streetService)
+        public PatientService(IPatientDAL patientDAL, IStreetService streetService)
         {
-            this.PatientDAL = employeeDataAccess;
+            this.PatientDAL = patientDAL;
             this.StreetService = streetService;
         }
         
@@ -26,6 +26,7 @@ namespace MyWebApp.BLL.Implementation
         }
         
         public async Task<Patient> UpdateAsync(PatientUpdateModel patient) {
+            await this.StreetService.ValidateAsync(patient);
             return await this.PatientDAL.UpdateAsync(patient);
         }
         

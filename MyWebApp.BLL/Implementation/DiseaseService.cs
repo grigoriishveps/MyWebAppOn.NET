@@ -13,9 +13,9 @@ namespace MyWebApp.BLL.Implementation
     {
         private IDiseaseDAL DiseaseDAL { get; }
         
-        public DiseaseService(IDiseaseDAL employeeDataAccess)
+        public DiseaseService(IDiseaseDAL diseaseDAL)
         {
-            this.DiseaseDAL = employeeDataAccess;
+            this.DiseaseDAL = diseaseDAL;
         }
         
         public async Task<Disease> CreateAsync(DiseaseUpdateModel disease) {

@@ -1,13 +1,13 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace MyWebApp.Client.DTO.Create
 {
     public class DiseaseCreateDTO
     {
-        public string FirstName { get; set; }
-        
-        public string LastName { get; set; }
-        
-        public string MiddleName { get; set; }
-        
-        public string PassportNumber{ get; set; }
+        [Required(ErrorMessage = "Name is required")]
+        public string Name { get; set; }
+        public string Description { get; set;}
+        public string Treatment { get; set;}
+        public string Annotation { get; set;}
     }
 }

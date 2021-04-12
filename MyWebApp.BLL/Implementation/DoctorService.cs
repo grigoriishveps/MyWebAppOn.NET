@@ -13,9 +13,9 @@ namespace MyWebApp.BLL.Implementation
     {
         private IDoctorDAL DoctorDAL { get; }
         
-        public DoctorService(IDoctorDAL employeeDataAccess)
+        public DoctorService(IDoctorDAL doctorDAL)
         {
-            this.DoctorDAL = employeeDataAccess;
+            this.DoctorDAL = doctorDAL;
         }
         
         public async Task<Doctor> CreateAsync(DoctorUpdateModel doctor) {
@@ -41,9 +41,7 @@ namespace MyWebApp.BLL.Implementation
             {
                 throw new ArgumentNullException(nameof(doctorContainer));
             }
-            
-            //var department = await this.DoctorDAL.GetAsync(new DoctorIdentityModel((int) doctorContainer.DoctorId));
-            
+     
             if (doctorContainer.DoctorId.HasValue)
             {
                 var department = await this.DoctorDAL.GetAsync(new DoctorIdentityModel((int) doctorContainer.DoctorId));

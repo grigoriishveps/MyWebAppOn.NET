@@ -19,40 +19,40 @@ namespace MyWebApp.WebAPI.Controllers
         private IMapper Mapper { get; }
         
         
-        public StreetApiController(ILogger<StreetApiController> logger, IMapper mapper, IStreetService patientService)
+        public StreetApiController(ILogger<StreetApiController> logger, IMapper mapper, IStreetService streetService)
         {
             this.Logger = logger;
-            this.StreetService = patientService;
+            this.StreetService = streetService;
             this.Mapper = mapper;
         }
         
         [HttpGet]
-        public async Task<IEnumerable<StreetDTO>> GetAsync(int patientId)
+        public async Task<IEnumerable<StreetDTO>> GetAsync()
         {
-            this.Logger.LogTrace($"{nameof(this.GetAsync)} called for {patientId}");
-            return this.Mapper.Map<IEnumerable<StreetDTO>>(await this.StreetService.GetAsync(new StreetIdentityModel(patientId)));
+            this.Logger.LogTrace($"{nameof(this.GetAsync)} called ");
+            return this.Mapper.Map<IEnumerable<StreetDTO>>(await this.StreetService.GetAsync());
         }
         
-        [HttpGet("{id}")]
-        public async Task<StreetDTO> GetAsync()
+        [HttpGet("{streetId}")]
+        public async Task<StreetDTO> GetAsync(int streetId)
         {
-            this.Logger.LogTrace($"{nameof(this.GetAsync)} called");
-            return this.Mapper.Map<StreetDTO>(await this.StreetService.GetAsync());
+            this.Logger.LogTrace($"{nameof(this.GetAsync)} called for {streetId}");
+            return this.Mapper.Map<StreetDTO>(await this.StreetService.GetAsync(new StreetIdentityModel(streetId)));
         }
         
         [HttpPatch]
-        public async Task<StreetDTO> PatchAsync(StreetUpdateDTO patient)
+        public async Task<StreetDTO> PatchAsync(StreetUpdateDTO street)
         {
             this.Logger.LogTrace($"{nameof(this.PutAsync)} called");
-            var result = await this.StreetService.UpdateAsync(this.Mapper.Map<StreetUpdateModel>(patient));
+            var result = await this.StreetService.UpdateAsync(this.Mapper.Map<StreetUpdateModel>(street));
             return this.Mapper.Map<StreetDTO>(result);
         }
         
         [HttpPut]
-        public async Task<StreetDTO> PutAsync(StreetCreateDTO patient)
+        public async Task<StreetDTO> PutAsync(StreetCreateDTO street)
         {
             this.Logger.LogTrace($"{nameof(this.PutAsync)} called");
-            var result = await this.StreetService.CreateAsync(this.Mapper.Map<StreetUpdateModel>(patient));
+            var result = await this.StreetService.CreateAsync(this.Mapper.Map<StreetUpdateModel>(street));
             return this.Mapper.Map<StreetDTO>(result);
         }
     }

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoFixture;
 using FluentAssertions;
 using Moq;
+using MyWebApp.BLL.Contracts;
 using MyWebApp.BLL.Implementation;
 using MyWebApp.DAL.Contracts;
 using MyWebApp.Domain;
@@ -64,9 +65,6 @@ namespace MyWebApp.BLL.Tests.Unit
             var street = new StreetUpdateModel();
             var expected = new Street();
             
-            //var departmentGetService = new Mock<IDepartmentGetService>();
-            //departmentGetService.Setup(x => x.ValidateAsync(employee));
-
             var streetDAL = new Mock<IStreetDAL>();
             streetDAL.Setup(x => x.InsertAsync(street)).ReturnsAsync(expected);
 
@@ -78,29 +76,5 @@ namespace MyWebApp.BLL.Tests.Unit
             // Assert
             result.Should().Be(expected);
         }
-        
-        // [Test]
-        // public async Task CreateAsync_StreetValidationFailed_ThrowsError()
-        // {
-        //     // Arrange
-        //     var fixture = new Fixture();
-        //     var street = new StreetUpdateModel();
-        //     var expected = fixture.Create<string>();
-        //     
-        //     var departmentGetService = new Mock<IDepartmentGetService>();
-        //     departmentGetService
-        //         .Setup(x => x.ValidateAsync(employee))
-        //         .Throws(new InvalidOperationException(expected));
-        //     
-        //     var streetDAL = new Mock<IStreetDAL>();
-        //     
-        //     var streetService = new StreetService(streetDAL.Object);
-        //     
-        //     var action = new Func<Task>(() => streetService.CreateAsync(street));
-        //     
-        //     // Assert
-        //     await action.Should().ThrowAsync<InvalidOperationException>().WithMessage(expected);
-        //     streetDAL.Verify(x => x.InsertAsync(street), Times.Never);
-        // }
     }
 }
