@@ -14,5 +14,7 @@ namespace MyWebApp.Client.DTO.Create
         
         [Required(ErrorMessage = "Passport is required")]
         public string PassportNumber{ get; set; }
+        
+        public int StreetId { get; set; }
     }
 }

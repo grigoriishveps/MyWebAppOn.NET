@@ -24,7 +24,9 @@ namespace MyWebApp.DAL.Implementations
 
         public async Task<MyWebApp.Domain.Note> InsertAsync(NoteUpdateModel employee)
         {
-            var result = await this.Context.AddAsync(this.Mapper.Map<Note>(employee));
+            Note new_obj = this.Mapper.Map<Note>(employee);
+            new_obj.DateVisit = DateTime.Today;
+            var result = await this.Context.AddAsync(new_obj);
 
             await this.Context.SaveChangesAsync();
 
@@ -57,9 +59,9 @@ namespace MyWebApp.DAL.Implementations
         public async Task<MyWebApp.Domain.Note> UpdateAsync(NoteUpdateModel employee)
         {
             var existing = await this.Get(employee);
-
+            
             var result = this.Mapper.Map(employee, existing);
-
+            
             this.Context.Update(result);
 
             await this.Context.SaveChangesAsync();

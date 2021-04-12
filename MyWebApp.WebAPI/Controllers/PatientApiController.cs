@@ -30,17 +30,17 @@ namespace MyWebApp.WebAPI.Controllers
         }
         
         [HttpGet]
-        public async Task<IEnumerable<PatientDTO>> GetAsync(int patientId)
+        public async Task<IEnumerable<PatientDTO>> GetAsync()
         {
-            this.Logger.LogTrace($"{nameof(this.GetAsync)} called for {patientId}");
-            return this.Mapper.Map<IEnumerable<PatientDTO>>(await this.PatientService.GetAsync(new PatientIdentityModel(patientId)));
+            this.Logger.LogTrace($"{nameof(this.GetAsync)} called ");
+            return this.Mapper.Map<IEnumerable<PatientDTO>>(await this.PatientService.GetAsync());
         }
         
-        [HttpGet("{id}")]
-        public async Task<PatientDTO> GetAsync()
+        [HttpGet("{patientId}")]
+        public async Task<PatientDTO> GetAsync(int patientId)
         {
-            this.Logger.LogTrace($"{nameof(this.GetAsync)} called");
-            return this.Mapper.Map<PatientDTO>(await this.PatientService.GetAsync());
+            this.Logger.LogTrace($"{nameof(this.GetAsync)} called for {patientId}");
+            return this.Mapper.Map<PatientDTO>(await this.PatientService.GetAsync(new PatientIdentityModel(patientId)));
         }
         
         [HttpPatch]

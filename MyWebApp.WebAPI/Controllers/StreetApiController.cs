@@ -27,24 +27,24 @@ namespace MyWebApp.WebAPI.Controllers
         }
         
         [HttpGet]
-        public async Task<IEnumerable<StreetDTO>> GetAsync(int patientId)
+        public async Task<IEnumerable<StreetDTO>> GetAsync()
         {
-            this.Logger.LogTrace($"{nameof(this.GetAsync)} called for {patientId}");
-            return this.Mapper.Map<IEnumerable<StreetDTO>>(await this.StreetService.GetAsync(new StreetIdentityModel(patientId)));
+            this.Logger.LogTrace($"{nameof(this.GetAsync)} called ");
+            return this.Mapper.Map<IEnumerable<StreetDTO>>(await this.StreetService.GetAsync());
         }
         
-        [HttpGet("{id}")]
-        public async Task<StreetDTO> GetAsync()
+        [HttpGet("{streetId}")]
+        public async Task<StreetDTO> GetAsync(int streetId)
         {
-            this.Logger.LogTrace($"{nameof(this.GetAsync)} called");
-            return this.Mapper.Map<StreetDTO>(await this.StreetService.GetAsync());
+            this.Logger.LogTrace($"{nameof(this.GetAsync)} called for {streetId}");
+            return this.Mapper.Map<StreetDTO>(await this.StreetService.GetAsync(new StreetIdentityModel(streetId)));
         }
         
         [HttpPatch]
-        public async Task<StreetDTO> PatchAsync(StreetUpdateDTO patient)
+        public async Task<StreetDTO> PatchAsync(StreetUpdateDTO street)
         {
             this.Logger.LogTrace($"{nameof(this.PutAsync)} called");
-            var result = await this.StreetService.UpdateAsync(this.Mapper.Map<StreetUpdateModel>(patient));
+            var result = await this.StreetService.UpdateAsync(this.Mapper.Map<StreetUpdateModel>(street));
             return this.Mapper.Map<StreetDTO>(result);
         }
         

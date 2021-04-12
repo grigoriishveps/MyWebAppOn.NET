@@ -12,13 +12,21 @@ namespace MyWebApp.BLL.Implementation
     public class NoteService:INoteService
     {
         private INoteDAL NoteDAL { get; }
-        
-        public NoteService(INoteDAL employeeDataAccess)
+        private IPatientService PatientService { get; }
+        private IDoctorService DoctorService { get; }
+        private IDiseaseService DiseaseService { get; }
+        public NoteService(INoteDAL employeeDataAccess, IPatientService patientService, IDoctorService doctorService, IDiseaseService diseaseService)
         {
             this.NoteDAL = employeeDataAccess;
+            this.PatientService = patientService;
+            this.DoctorService = doctorService;
+            this.DiseaseService = diseaseService;
         }
         
         public async Task<Note> CreateAsync(NoteUpdateModel note) {
+            await this.PatientService.ValidateAsync(note);
+            await this.DoctorService.ValidateAsync(note);
+            await this.DiseaseService.ValidateAsync(note);
             return await this.NoteDAL.InsertAsync(note);
         }
         

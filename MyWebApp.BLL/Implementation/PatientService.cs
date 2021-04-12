@@ -26,6 +26,7 @@ namespace MyWebApp.BLL.Implementation
         }
         
         public async Task<Patient> UpdateAsync(PatientUpdateModel patient) {
+            await this.StreetService.ValidateAsync(patient);
             return await this.PatientDAL.UpdateAsync(patient);
         }
         
